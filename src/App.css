@@ -138,7 +138,28 @@ h2 { margin-bottom: 4px; font-size: clamp(1.55rem, 7vw, 2.7rem); }
 }
 .setup-fields { margin-bottom: 12px; }
 .select-row { grid-template-columns: 1fr; margin-bottom: 12px; }
-label { display: grid; gap: 6px; color: var(--muted); font-size: 0.82rem; font-weight: 800; }
+label, .target-field { display: grid; gap: 6px; color: var(--muted); font-size: 0.82rem; font-weight: 800; }
+.field-label { color: var(--muted); }
+.target-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.target-chip {
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: #f8fbff;
+  background: rgba(0, 0, 0, 0.24);
+  font-weight: 900;
+}
+.target-chip.active {
+  color: #071120;
+  background: var(--accent);
+  border-color: transparent;
+}
+.custom-target { grid-template-columns: auto 1fr; align-items: center; margin-top: 2px; }
+.custom-target input { min-height: 42px; }
 input, select {
   width: 100%;
   min-height: 48px;

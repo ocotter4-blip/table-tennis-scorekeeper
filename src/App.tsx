@@ -161,17 +161,34 @@ export default function App() {
                 </select>
               </label>
             )}
-            <label>
-              <span>Game target</span>
-              <input
-                type="number"
-                min={3}
-                max={99}
-                step={1}
-                value={target}
-                onChange={(e) => setTarget(Math.max(3, Number(e.target.value) || 11))}
-              />
-            </label>
+            <div className="target-field" role="group" aria-label="Game target">
+              <span className="field-label">Game target</span>
+              <div className="target-options">
+                {[11, 21].map((points) => (
+                  <button
+                    key={points}
+                    className={target === points ? 'target-chip active' : 'target-chip'}
+                    onClick={() => setTarget(points)}
+                    type="button"
+                  >
+                    {points}
+                  </button>
+                ))}
+              </div>
+              <label className="custom-target">
+                <span>Custom</span>
+                <input
+                  aria-label="Custom target score"
+                  type="number"
+                  inputMode="numeric"
+                  min={3}
+                  max={99}
+                  step={1}
+                  value={target}
+                  onChange={(e) => setTarget(Math.max(3, Number(e.target.value) || 11))}
+                />
+              </label>
+            </div>
           </div>
 
           <div className="rule-note">
