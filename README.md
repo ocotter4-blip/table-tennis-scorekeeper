@@ -4,12 +4,14 @@ A mobile-first web app for tracking table tennis singles and doubles games.
 
 ## Features
 
+- Separate setup page for selecting singles/doubles, entering player names, choosing the first server/receiver, and inputting the target score.
 - Tap the side that scored to increment.
-- Long-press a side to decrement/correct.
+- Long-press a side to continuously decrement/correct until released.
 - Singles and doubles modes.
 - Configurable first server and first receiver for legal doubles service rotation.
 - Automatic service switch prompts: every 2 points before deuce, every point from deuce onward.
-- Win-by-two game ending at 11 by default, with optional 21-point target.
+- Doubles service order follows ITTF Law 2.13.5: at each service change, the previous receiver becomes server and the previous server's partner receives.
+- Win-by-two game ending at the chosen target score, 11 by default.
 
 ## Development
 

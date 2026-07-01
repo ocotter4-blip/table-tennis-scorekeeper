@@ -26,10 +26,14 @@ describe('table tennis scoring rules', () => {
     expect(getServiceState(base({ left: 2, right: 2 })).server.id).toBe('L1')
   })
 
-  it('switches service every point at deuce', () => {
+  it('switches service every point at deuce for the selected target', () => {
     expect(getServiceState(base({ left: 10, right: 10 })).server.id).toBe('L1')
     expect(getServiceState(base({ left: 11, right: 10 })).server.id).toBe('R1')
     expect(getServiceState(base({ left: 11, right: 11 })).server.id).toBe('L1')
+
+    expect(getServiceState(base({ left: 10, right: 10, target: 21 })).switchEvery).toBe(2)
+    expect(getServiceState(base({ left: 20, right: 20, target: 21 })).switchEvery).toBe(1)
+    expect(getServiceState(base({ left: 21, right: 20, target: 21 })).server.id).toBe('R1')
   })
 
   it('requires win by two', () => {
@@ -57,5 +61,9 @@ describe('table tennis scoring rules', () => {
     expect(getServiceState({ ...doubles, left: 3, right: 3 }).server.id).toBe('R2')
     expect(getServiceState({ ...doubles, left: 4, right: 4 }).server.id).toBe('L1')
     expect(getServiceState({ ...doubles, left: 1, right: 1 }).receiver?.id).toBe('L2')
+    expect(getServiceState({ ...doubles, left: 10, right: 10 }).server.id).toBe('L2')
+    expect(getServiceState({ ...doubles, left: 10, right: 10 }).receiver?.id).toBe('R2')
+    expect(getServiceState({ ...doubles, left: 11, right: 10 }).server.id).toBe('R2')
+    expect(getServiceState({ ...doubles, left: 11, right: 10 }).receiver?.id).toBe('L1')
   })
 })
