@@ -147,19 +147,39 @@ export default function App() {
           </div>
 
           <div className="select-row setup-selects">
-            <label>
-              <span>First server</span>
-              <select value={initialServerId} onChange={(e) => setInitialServerId(e.target.value)}>
-                {players.map((player) => <option key={player.id} value={player.id}>{player.name}</option>)}
-              </select>
-            </label>
+            <div className="choice-field" role="group" aria-label="Who serves first">
+              <span className="field-label">Who serves first?</span>
+              <div className="choice-options">
+                {players.map((player) => (
+                  <button
+                    key={player.id}
+                    className={`choice-chip ${player.team} ${initialServerId === player.id ? 'active' : ''}`}
+                    onClick={() => setInitialServerId(player.id)}
+                    type="button"
+                  >
+                    <span>{player.team === 'left' ? 'Team A' : 'Team B'}</span>
+                    {player.name}
+                  </button>
+                ))}
+              </div>
+            </div>
             {mode === 'doubles' && (
-              <label>
-                <span>First receiver</span>
-                <select value={initialReceiverId} onChange={(e) => setInitialReceiverId(e.target.value)}>
-                  {receiverChoices.map((player) => <option key={player.id} value={player.id}>{player.name}</option>)}
-                </select>
-              </label>
+              <div className="choice-field" role="group" aria-label="Who receives first">
+                <span className="field-label">Who receives first?</span>
+                <div className="choice-options">
+                  {receiverChoices.map((player) => (
+                    <button
+                      key={player.id}
+                      className={`choice-chip ${player.team} ${initialReceiverId === player.id ? 'active' : ''}`}
+                      onClick={() => setInitialReceiverId(player.id)}
+                      type="button"
+                    >
+                      <span>{player.team === 'left' ? 'Team A' : 'Team B'}</span>
+                      {player.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
             <div className="target-field" role="group" aria-label="Game target">
               <span className="field-label">Game target</span>

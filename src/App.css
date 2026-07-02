@@ -138,13 +138,15 @@ h2 { margin-bottom: 4px; font-size: clamp(1.55rem, 7vw, 2.7rem); }
 }
 .setup-fields { margin-bottom: 12px; }
 .select-row { grid-template-columns: 1fr; margin-bottom: 12px; }
-label, .target-field { display: grid; gap: 6px; color: var(--muted); font-size: 0.82rem; font-weight: 800; }
+label, .target-field, .choice-field { display: grid; gap: 6px; color: var(--muted); font-size: 0.82rem; font-weight: 800; }
 .field-label { color: var(--muted); }
+.choice-options,
 .target-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+.choice-chip,
 .target-chip {
   min-height: 48px;
   border: 1px solid var(--line);
@@ -153,6 +155,27 @@ label, .target-field { display: grid; gap: 6px; color: var(--muted); font-size: 
   background: rgba(0, 0, 0, 0.24);
   font-weight: 900;
 }
+.choice-chip {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: 8px 10px;
+}
+.choice-chip span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.choice-chip.active.left {
+  background: linear-gradient(145deg, rgba(69, 202, 255, 0.95), rgba(24, 82, 147, 0.96));
+  border-color: var(--accent);
+}
+.choice-chip.active.right {
+  background: linear-gradient(145deg, rgba(255, 143, 112, 0.98), rgba(150, 48, 77, 0.96));
+  border-color: var(--accent);
+}
+.choice-chip.active span { color: rgba(255,255,255,0.78); }
 .target-chip.active {
   color: #071120;
   background: var(--accent);
