@@ -4,7 +4,8 @@ A mobile-first web app for tracking table tennis singles and doubles games.
 
 ## Features
 
-- Separate setup page for selecting singles/doubles, entering player names, choosing the first server/receiver, and inputting the target score.
+- Separate setup page for selecting singles/doubles, entering player names, and inputting the target score.
+- Choose who starts from the scoring page so repeated games can reuse the same players without editing setup.
 - Tap the side that scored to increment.
 - Long-press a side to continuously decrement/correct until released.
 - Singles and doubles modes.

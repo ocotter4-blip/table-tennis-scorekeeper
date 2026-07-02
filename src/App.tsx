@@ -82,6 +82,30 @@ export default function App() {
     setInitialReceiverId('R1')
   }
 
+  function chooseInitialServer(playerId: string) {
+    const server = players.find((player) => player.id === playerId)
+    if (!server) return
+    const legalReceiver = players.find((player) => player.team !== server.team)
+    setInitialServerId(playerId)
+    if (legalReceiver && !players.some((player) => player.id === initialReceiverId && player.team !== server.team)) {
+      setInitialReceiverId(legalReceiver.id)
+    }
+    if (page === 'score') {
+      resetScore(false)
+      setToast(`${server.name} will serve first. Score reset for the game.`)
+    }
+  }
+
+  function chooseInitialReceiver(playerId: string) {
+    const receiver = players.find((player) => player.id === playerId)
+    if (!receiver) return
+    setInitialReceiverId(playerId)
+    if (page === 'score') {
+      resetScore(false)
+      setToast(`${receiver.name} will receive first. Score reset for the game.`)
+    }
+  }
+
   function resetScore(showToast = true) {
     setLeft(0)
     setRight(0)
@@ -128,7 +152,7 @@ export default function App() {
         <section className="hero-card">
           <p className="eyebrow">Table tennis scorer</p>
           <h1>Set up the game</h1>
-          <p className="hero-copy">Choose singles or doubles, name the players, and confirm the first server before scoring.</p>
+          <p className="hero-copy">Choose singles or doubles, name the players, and set the target score before scoring.</p>
         </section>
 
         <section className="setup-card" aria-label="Game setup">
@@ -147,40 +171,6 @@ export default function App() {
           </div>
 
           <div className="select-row setup-selects">
-            <div className="choice-field" role="group" aria-label="Who serves first">
-              <span className="field-label">Who serves first?</span>
-              <div className="choice-options">
-                {players.map((player) => (
-                  <button
-                    key={player.id}
-                    className={`choice-chip ${player.team} ${initialServerId === player.id ? 'active' : ''}`}
-                    onClick={() => setInitialServerId(player.id)}
-                    type="button"
-                  >
-                    <span>{player.team === 'left' ? 'Team A' : 'Team B'}</span>
-                    {player.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {mode === 'doubles' && (
-              <div className="choice-field" role="group" aria-label="Who receives first">
-                <span className="field-label">Who receives first?</span>
-                <div className="choice-options">
-                  {receiverChoices.map((player) => (
-                    <button
-                      key={player.id}
-                      className={`choice-chip ${player.team} ${initialReceiverId === player.id ? 'active' : ''}`}
-                      onClick={() => setInitialReceiverId(player.id)}
-                      type="button"
-                    >
-                      <span>{player.team === 'left' ? 'Team A' : 'Team B'}</span>
-                      {player.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
             <div className="target-field" role="group" aria-label="Game target">
               <span className="field-label">Game target</span>
               <div className="target-options">
@@ -230,6 +220,44 @@ export default function App() {
           <h1>{left}–{right}</h1>
         </div>
         <button className="ghost-button" onClick={() => setPage('setup')}>Edit setup</button>
+      </section>
+
+      <section className="starter-card" aria-label="Starting service">
+        <div className="choice-field" role="group" aria-label="Who serves first">
+          <span className="field-label">Who starts this game?</span>
+          <div className="choice-options">
+            {players.map((player) => (
+              <button
+                key={player.id}
+                className={`choice-chip ${player.team} ${initialServerId === player.id ? 'active' : ''}`}
+                onClick={() => chooseInitialServer(player.id)}
+                type="button"
+              >
+                <span>{player.team === 'left' ? 'Team A' : 'Team B'}</span>
+                {player.name}
+              </button>
+            ))}
+          </div>
+        </div>
+        {mode === 'doubles' && (
+          <div className="choice-field" role="group" aria-label="Who receives first">
+            <span className="field-label">First receiver</span>
+            <div className="choice-options">
+              {receiverChoices.map((player) => (
+                <button
+                  key={player.id}
+                  className={`choice-chip ${player.team} ${initialReceiverId === player.id ? 'active' : ''}`}
+                  onClick={() => chooseInitialReceiver(player.id)}
+                  type="button"
+                >
+                  <span>{player.team === 'left' ? 'Team A' : 'Team B'}</span>
+                  {player.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        {(left > 0 || right > 0) && <p className="starter-hint">Changing starter resets this game to 0–0.</p>}
       </section>
 
       <section className="score-grid" aria-label="Score controls">
