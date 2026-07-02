@@ -213,7 +213,7 @@ export default function App() {
   }
 
   return (
-    <main className="app-shell">
+    <main className="app-shell score-shell">
       <section className="top-card" aria-label="Score header">
         <div>
           <p className="eyebrow">{mode === 'singles' ? 'Singles' : 'Doubles'} · game to {target}</p>
